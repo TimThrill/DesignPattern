@@ -1,36 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using DesignPattern.Interfaces;
+using DesignPattern.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DesignPattern.FactoryMethod
 {
-    public enum AircraftType
-    {
-        Commericial,
-        Private
-    }
-
-    public interface IAircraft {
-        AircraftType GetType();
-    }
-
-    public class CommercialJet : IAircraft
-    {
-        public AircraftType GetType()
-        {
-            return AircraftType.Commericial;
-        }
-    }
-
-    public class PrivateJet : IAircraft
-    {
-        public AircraftType GetType()
-        {
-            return AircraftType.Private;
-        }
-    }
-
     /// <summary>
     /// https://en.wikipedia.org/wiki/Factory_method_pattern
     /// In class-based programming, the factory method pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created.
