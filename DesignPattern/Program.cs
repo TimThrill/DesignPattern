@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DesignPattern.FactoryMethod;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using System;
 
 namespace DesignPattern
 {
@@ -6,7 +10,36 @@ namespace DesignPattern
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            try
+            {
+                var serviceProvider = BuildDi();
+                Console.WriteLine("Applciation start ...");
+                IAircraft aircraft = (serviceProvider.GetRequiredService<AircraftFactory>()).GetAircraft(AircraftType.Commericial);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.ToString());
+            }
+            finally
+            {
+                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+                NLog.LogManager.Shutdown();
+            }
+        }
+
+        private static ServiceProvider BuildDi()
+        {
+            return new ServiceCollection()
+                .AddLogging(builder => {
+                    builder.SetMinimumLevel(LogLevel.Trace);
+                    builder.AddNLog(new NLogProviderOptions
+                    {
+                        CaptureMessageTemplates = true,
+                        CaptureMessageProperties = true
+                    });
+                })
+                .AddTransient<AircraftFactory>()
+                .BuildServiceProvider();
         }
     }
 }
