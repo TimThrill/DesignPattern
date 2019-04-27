@@ -1,4 +1,7 @@
 ﻿using DesignPattern.FactoryMethod;
+using DesignPattern.Interfaces;
+using DesignPattern.Models;
+using DesignPattern.ProxyPattern;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
@@ -14,7 +17,13 @@ namespace DesignPattern
             {
                 var serviceProvider = BuildDi();
                 Console.WriteLine("Applciation start ...");
+
+                // Factory Method
                 IAircraft aircraft = (serviceProvider.GetRequiredService<AircraftFactory>()).GetAircraft(AircraftType.Commericial);
+
+                // Proxy Patter
+                ProxyAircraft proxyAircraft = new ProxyAircraft();
+                proxyAircraft.TurnLeft();
             }
             catch (Exception e)
             {

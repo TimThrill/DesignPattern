@@ -26,4 +26,24 @@ namespace DesignPattern.Models
             return (int)AircraftType.Private;
         }
     }
+
+    public class B738 : CommercialJet, IManeuver
+    {
+        private float? Course;
+
+        public B738()
+        {
+            Course = 90.0f;
+        }
+
+        public void TurnLeft()
+        {
+            if (Course != null)
+            {
+                Course -= 90;
+            }
+        }
+    }
+
+
 }
