@@ -1,5 +1,4 @@
-﻿using DesignPattern.FactoryMethod;
-using DesignPattern.Interfaces;
+﻿using DesignPattern.Interfaces;
 using DesignPattern.Models;
 using DesignPattern.ProxyPattern;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,9 +16,6 @@ namespace DesignPattern
             {
                 var serviceProvider = BuildDi();
                 Console.WriteLine("Applciation start ...");
-
-                // Factory Method
-                IAircraft aircraft = (serviceProvider.GetRequiredService<AircraftFactory>()).GetAircraft(AircraftType.Commericial);
 
                 // Proxy Patter
                 ProxyAircraft proxyAircraft = new ProxyAircraft();
@@ -48,7 +44,6 @@ namespace DesignPattern
                         CaptureMessageProperties = true
                     });
                 })
-                .AddTransient<AircraftFactory>()
                 .BuildServiceProvider();
         }
     }

@@ -1,18 +1,14 @@
 ﻿using System;
 
-namespace FactoryMethod
+namespace Factory
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            GetProductName(new AppliancesProductCreator());
-            GetProductName(new ElectronicProductCreator());
-        }
-
-        public static void GetProductName (Creator creator)
-        {
-            Console.WriteLine($"Product name is {creator.GetName()}");
+            var pcFactory = new ChinaPcDiyStoreFactory();
+            var pc = pcFactory.Order(PcType.GamingPc);
+            Console.WriteLine(pc.GetPcSummary());
         }
     }
 }
